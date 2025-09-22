@@ -12,7 +12,7 @@ const addTodo = async (req, res) => {
       userId: userId,
     });
     await todoAdded.save();
-    res.status(201).json(taskAdded);
+    res.status(201).json(todoAdded);
   } catch (error) {
     res.status(500).json({ message: "something went wrong", error });
   }
@@ -24,7 +24,7 @@ const getTodo = async (req, res) => {
     if (todos.length === 0) {
       return res.status(404).json({ message: "No tasks found" });
     }
-    res.status(200).json(tasks);
+    res.status(200).json(todos);
   } catch (error) {
     res.status(500).json({ message: "something went wrong", error });
   }
