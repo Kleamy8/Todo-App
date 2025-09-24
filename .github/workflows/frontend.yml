@@ -28,6 +28,6 @@ jobs:
         run: npm install
 
       - name: Run jest tests
-        run: npm run test:unit -- --watchAll=false
+        run: npm run test:unit:ci -- --watchAll=false
       - name: Run cypress tests
-        run: npm run test:e2e -- --watchAll=false
+        run: npm run test:e2e:ci -- --watchAll=false
