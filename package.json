@@ -8,9 +8,12 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest , cypress"
+    "serve": "npm run build && vite preview --port 3000",
+    "test:unit": "jest",
+    "test:e2e": "start-server-and-test serve http://127.0.0.1:3000 'cypress run'"
   },
   "dependencies": {
+    "jest": "^29.7.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
@@ -24,6 +27,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.4.0",
+    "start-server-and-test": "^2.1.2",
     "vite": "^7.1.7"
   }
 }
