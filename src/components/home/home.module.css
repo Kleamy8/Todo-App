@@ -1,0 +1,91 @@
+.container {
+  background-image: url("@/assets/cover2.jpg");
+  height: 100vh;
+  background-size: cover; /* ensures the image covers the container */
+  background-position: center; /* centers the image */
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header {
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 90%;
+  position: fixed;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 15px;
+  padding: 15px;
+  border: none;
+  border-radius: 28px;
+  font-family: fantasy;
+  display: flex;
+  flex-direction: row;
+}
+.navbar {
+  flex: 4;
+  display: flex;
+  gap: 20px;
+  justify-content: end;
+  align-items: center;
+}
+.navbar a {
+  text-decoration: none;
+  color: black;
+}
+.title {
+  flex: 1;
+}
+body,
+html {
+  margin: 0;
+}
+.todos {
+  display: flex;
+  gap: 80px;
+  width: 80%;
+}
+.completed,
+.ongoing {
+  flex: 1;
+
+  background-color: rgba(255, 255, 255, 0.9);
+  height: 300px;
+  border-radius: 28px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: fantasy;
+}
+.todoTitle {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-weight: 800;
+}
+.todoContainer {
+  flex: 3;
+  padding: 18px;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+}
+.container button {
+  position: absolute;
+  bottom: 50px;
+  width: 30%;
+  border-radius: 28px;
+  background-color: rgb(139, 240, 139, 0.6);
+  border: none;
+  padding: 15px;
+  font-family: fantasy;
+  font-weight: 800;
+  height: 76px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
