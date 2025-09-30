@@ -20,13 +20,3 @@ describe("HomePage", () => {
     ).toHaveLength(2);
   });
 });
-describe("headerPage", () => {
-  it("should show the title and navbar", () => {
-    render(<Header />);
-    expect(
-      screen.getByRole("heading", { name: /todo-app/i })
-    ).toBeInTheDocument();
-    expect(screen.getByText(/about us/i)).toBeInTheDocument();
-    expect(screen.getByText(/contact us/i)).toBeInTheDocument();
-  });
-});

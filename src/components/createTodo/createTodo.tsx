@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import style from "./create.module.css";
+
 import DatePicker from "react-datepicker";
+import { Header } from "../home/header";
 interface Todo {
   task: string;
   date: Date | null;
@@ -24,21 +27,26 @@ export function CreateTodo() {
 
   return (
     <>
-      <div className="taskContainer">
-        <h1>Add new Todo</h1>
+      <Header name={"Add-todo"} />
+      <div className={style.taskContainer}>
         <form onSubmit={handleSubmit}>
+          <label htmlFor="">Deadline:</label>
           <DatePicker
+            className={style.datepicker}
             customInput={<input data-testid="date-picker" />}
             selected={startDate}
             onChange={date => setStartDate(date)}
           />
           <input
+            className={style.inputs}
             type="text"
             value={task}
             onChange={e => setTask(e.target.value)}
             placeholder="Task name"
           />
-          <button type="submit">Add</button>
+          <button type="submit" className={style.addbutton}>
+            Add
+          </button>
         </form>
       </div>
     </>

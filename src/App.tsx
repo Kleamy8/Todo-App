@@ -3,7 +3,7 @@ import HelloWorld from "@/components/HelloWorld/HelloWorld";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Home } from "./components/home/home";
-import { CreateTodo } from "./components/createTodo";
+import { CreateTodo } from "./components/createTodo/createTodo";
 
 export default function App() {
   return (

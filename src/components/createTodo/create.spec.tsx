@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { CreateTodo } from "./components/createTodo";
+import { CreateTodo } from "./createTodo";
 
 let mockedSetItem: jest.Mock;
 
