@@ -7,7 +7,7 @@ export function Home() {
   return (
     <>
       <div className={styles.container}>
-        <Header />
+        <Header name={"Todo-app"} />
         <div className={styles.todos}>
           <div data-testid="ongoing" className={styles.ongoing}>
             <div className={styles.todoTitle}>
