@@ -23,6 +23,10 @@ describe("CreateTodo component", () => {
 
     const dayButton = screen.getByText("15");
     fireEvent.click(dayButton);
+    const opitions = screen.getByTestId("options");
+    fireEvent.click(opitions);
+    const category = screen.getByText("Work");
+    fireEvent.click(category);
     fireEvent.click(button);
 
     expect(input).toHaveValue("");
@@ -46,11 +50,17 @@ describe("CreateTodo component", () => {
     const daybutton = screen.getByText("17");
     fireEvent.click(daybutton);
     fireEvent.click(addButton);
-
+    const opitions = screen.getByTestId("options");
+    fireEvent.click(opitions);
+    const category = screen.getByText("Work");
+    fireEvent.click(category);
     fireEvent.change(input, { target: { value: "Task 2" } });
     fireEvent.click(dateInput);
     const day2button = screen.getByText("18");
     fireEvent.click(day2button);
+    fireEvent.click(opitions);
+    const category2 = screen.getByText("Work");
+    fireEvent.click(category2);
     fireEvent.click(addButton);
 
     const savedTodos = JSON.parse(mockedSetItem.mock.calls[1][1]);

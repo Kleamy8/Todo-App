@@ -20,6 +20,8 @@ describe("CreateTodo component", () => {
     cy.get('input[placeholder="Task name"]').type("Cypress Test Task");
 
     cy.get('[data-testid="date-picker"]').clear().type("01/15/2030").blur();
+    cy.get("body").click(0, 0);
+    cy.get(`[data-testid="options"]`).select("Work");
 
     cy.contains("Add").click();
   });

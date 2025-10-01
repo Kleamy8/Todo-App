@@ -55,6 +55,7 @@ export function CreateTodo() {
             className={style.category}
             value={category}
             onChange={e => setCategory(e.target.value)}
+            data-testid="options"
           >
             <option value="">Select a category</option>
             <option value="Study" style={{ color: "blue" }}>
