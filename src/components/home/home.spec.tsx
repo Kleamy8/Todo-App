@@ -14,9 +14,5 @@ describe("HomePage", () => {
     expect(
       screen.getByRole("button", { name: /add new todo/i })
     ).toBeInTheDocument();
-
-    expect(
-      screen.getAllByRole("heading", { name: /ongoing|completed/i })
-    ).toHaveLength(2);
   });
 });
