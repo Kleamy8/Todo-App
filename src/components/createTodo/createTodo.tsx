@@ -33,7 +33,7 @@ export function CreateTodo() {
 
   return (
     <>
-      <Header name={"Add-Task"} />
+      <Header name={"Add Task"} />
       <div className={style.taskContainer}>
         <form onSubmit={handleSubmit}>
           <label htmlFor="">Deadline:</label>
