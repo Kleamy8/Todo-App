@@ -1,0 +1,35 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+}
+
+.header {
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.calendar {
+  flex: 1;
+  overflow: hidden;
+}
+
+button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1000;
+}
+
+button:hover {
+  background: #1557b0;
+}
