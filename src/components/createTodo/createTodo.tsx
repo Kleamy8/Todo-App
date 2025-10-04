@@ -70,7 +70,7 @@ export function CreateTodo() {
           </select>
 
           <button type="submit" className={style.addbutton}>
-            Add
+            Add Task
           </button>
         </form>
       </div>
