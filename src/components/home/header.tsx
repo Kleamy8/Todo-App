@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./home.module.css";
+import styles from "./header.module.css";
 import { useNavigate } from "react-router-dom";
 export function Header({ name }: { name: string }) {
   const [show, setShow] = useState(false);
@@ -25,7 +25,7 @@ export function Header({ name }: { name: string }) {
           >
             Add new Todo
           </button>
-          <div>
+          <div className={styles.category}>
             <p onClick={() => setShow(!show)}>
               {category !== "" ? category : "Category"}
             </p>
@@ -66,7 +66,6 @@ export function Header({ name }: { name: string }) {
               </ul>
             )}
           </div>
-          <p>Contact us</p>
         </div>
       </div>
     </>
