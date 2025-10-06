@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [legacy(), react()],
-  base: "/Todo-App/",
+
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
