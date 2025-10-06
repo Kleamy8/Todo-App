@@ -9,7 +9,7 @@
 
 .calendarHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   background: #2d2d2d;
@@ -26,16 +26,36 @@
 .navigation {
   display: flex;
   gap: 8px;
+  background-color: white;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  width: 400px;
+  height: 100px;
 }
 
-.navButton {
-  background: #1a73e8;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+.navButtonnext {
+  height: 30px;
+  width: 40px;
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 10%;
+}
+.navButtonpre {
+  height: 30px;
+  width: 40px;
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  left: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navButton:hover {

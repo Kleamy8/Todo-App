@@ -17,9 +17,6 @@
 }
 
 button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
   background: #1a73e8;
   color: white;
   border: none;
