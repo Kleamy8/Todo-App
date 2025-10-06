@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
+import { useNavigate } from "react-router-dom";
 export function Header({ name }: { name: string }) {
   const [show, setShow] = useState(false);
-  const [catagory, setCategory] = useState("");
+  const [category, setCategory] = useState(
+    () => localStorage.getItem("categories") || ""
+  );
+  const navigate = useNavigate();
   useEffect(() => {
-    localStorage.clear();
-    localStorage.setItem("categories", catagory);
-  }, [catagory]);
+    localStorage.setItem("categories", category);
+    window.dispatchEvent(new Event("storage")); // 🔥 trigger event so Calendar updates
+  }, [category]);
   return (
     <>
       <div className={styles.header}>
@@ -14,9 +18,16 @@ export function Header({ name }: { name: string }) {
           <h1>{name}</h1>
         </div>
         <div className={styles.navbar}>
+          <button
+            data-testid="addnewbutton"
+            type="button"
+            onClick={() => navigate("/create")}
+          >
+            Add new Todo
+          </button>
           <div>
             <p onClick={() => setShow(!show)}>
-              {catagory !== "" ? catagory : "Category"}
+              {category !== "" ? category : "Category"}
             </p>
             {show && (
               <ul>
