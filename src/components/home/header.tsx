@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 export function Header({ name }: { name: string }) {
   const [show, setShow] = useState(false);
-  const [category, setCategory] = useState("");
+  const [catagory, setCategory] = useState("");
   useEffect(() => {
     localStorage.clear();
-    localStorage.setItem("category", category);
-  }, [category]);
+    localStorage.setItem("categories", catagory);
+  }, [catagory]);
   return (
     <>
       <div className={styles.header}>
@@ -16,7 +16,7 @@ export function Header({ name }: { name: string }) {
         <div className={styles.navbar}>
           <div>
             <p onClick={() => setShow(!show)}>
-              {category !== "" ? category : "Category"}
+              {catagory !== "" ? catagory : "Category"}
             </p>
             {show && (
               <ul>
