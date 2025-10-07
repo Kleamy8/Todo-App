@@ -130,15 +130,21 @@ export const Calendar: React.FC = () => {
 
         <div className={styles.daysGrid}>
           {days.map((day, index) => (
-            <div key={index} className={styles.dayCell}>
+            <div key={index} className={styles.dayCell} data-testid="day-cell">
               {day && (
                 <>
-                  <div className={styles.dayNumber}>{day.getDate()}</div>
-                  <div className={styles.todosContainer}>
+                  <div className={styles.dayNumber} data-testid="day-number">
+                    {day.getDate()}
+                  </div>
+                  <div className={styles.todosContainer} data-testid="calander">
                     {getTodosForDay(day)
                       .filter(todo => !category || todo.category === category)
                       .map((todo, todoIndex) => (
-                        <div key={todoIndex} className={styles.todoItem}>
+                        <div
+                          key={todoIndex}
+                          className={styles.todoItem}
+                          data-testid="todoItem"
+                        >
                           {todo.task}
                         </div>
                       ))}
