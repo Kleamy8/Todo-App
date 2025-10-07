@@ -51,7 +51,7 @@ describe("Calendar Component", () => {
 
       const monthNames = [
         "Januari",
-        "Fabruari",
+        "Februari",
         "Mars",
         "April",
         "Maj",
@@ -67,14 +67,14 @@ describe("Calendar Component", () => {
       render(<Calendar />);
 
       expect(
-        screen.getByText("${monthNames[currentMonth]} ${currentYear}")
+        screen.getByText(`${monthNames[currentMonth]} ${currentYear}`)
       ).toBeInTheDocument();
     });
 
     test("renders navigation buttons", () => {
       render(<Calendar />);
 
-      const prebButton = screen.getByRole("button", { name: "<" });
+      const prevButton = screen.getByRole("button", { name: "<" });
       const nextButton = screen.getByRole("button", { name: ">" });
 
       expect(prevButton).toBeInTheDocument();
@@ -96,7 +96,7 @@ describe("Calendar Component", () => {
     test("navigates to previous month", () => {
       render(<Calendar />);
 
-      const prevButton = screen.getByRole("button", { name: "<" });
+      const prevButton = screen.getByRole("button", { name: "‹" });
       fireEvent.click(prevButton);
 
       const currentDate = new Date();
@@ -109,7 +109,7 @@ describe("Calendar Component", () => {
 
       const monthNames = [
         "Januari",
-        "Fabruari",
+        "Februari",
         "Mars",
         "April",
         "Maj",
@@ -119,13 +119,132 @@ describe("Calendar Component", () => {
         "September",
         "Oktober",
         "November",
+        "December",
       ];
 
+      expect(
+        screen.getByText(`${monthNames[previousMonth]} ${expectedYear}`)
+      ).toBeInTheDocument();
+    });
+
+    test("navigates to next month", () => {
       render(<Calendar />);
 
+      const nextButton = screen.getByRole("button", { name: "›" });
+      fireEvent.click(nextButton);
+
+      const currentDate = new Date();
+      const nextMonth =
+        currentDate.getMonth() === 11 ? 0 : currentDate.getMonth() + 1;
+      const expectedYear =
+        currentDate.getMonth() === 11
+          ? currentDate.getFullYear() + 1
+          : currentDate.getFullYear();
+
+      const monthNames = [
+        "Januari",
+        "Februari",
+        "Mars",
+        "April",
+        "Maj",
+        "Juni",
+        "Juli",
+        "Augusti",
+        "September",
+        "Oktober",
+        "November",
+        "December",
+      ];
+
       expect(
-        screen.getByText(`${monthNames[currentMonth]} ${currentYear}`)
+        screen.getByText(`${monthNames[nextMonth]} ${expectedYear}`)
       ).toBeInTheDocument();
+    });
+  });
+
+  describe("Testa uppgifter och filtrering", () => {
+    beforeEach(() => {
+      const todos = [
+        {
+          task: "Study React",
+          date: new Date(2025, 10, 17).toISOString(),
+          category: "Study",
+        },
+      ];
+      localStorageMock.getItem.mockReturnValue(JSON.stringify(todos));
+      localStorageMock.setItem.mockClear();
+      localStorageMock.clear.mockClear();
+    });
+
+    it("shows the task in the right cell", async () => {
+      render(<Calendar />);
+
+      const nextButton = screen.getByRole("button", { name: "›" });
+      const header = screen.getByRole("heading");
+
+      while (!header.textContent?.includes("November 2025")) {
+        fireEvent.click(nextButton);
+      }
+
+      const dayCell = screen.getByTestId("day-cell");
+      await waitFor(() => {
+        expect(
+          screen.getByText("Study React", {
+            selector: '[data-testid="todoItem"]',
+          })
+        ).toBeInTheDocument();
+      });
+    });
+
+    it("filters out the tasks ", async () => {
+      render(<Calendar />);
+
+      const categoryButton = screen.getByText("Category", { selector: "p" });
+      fireEvent.click(categoryButton);
+
+      await waitFor(() => {
+        expect(screen.getByRole("list")).toBeInTheDocument();
+      });
+
+      const workCategory = screen.getByText("Work", { selector: "li" });
+      fireEvent.click(workCategory);
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText("Study React", {
+            selector: '[data-testid="todoItem"]',
+          })
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it("filters the tasks ", async () => {
+      render(<Calendar />);
+
+      const nextButton = screen.getByRole("button", { name: "›" });
+      const header = screen.getByRole("heading");
+
+      while (!header.textContent?.includes("November 2025")) {
+        fireEvent.click(nextButton);
+      }
+
+      const categoryButton = screen.getByText("Category", { selector: "p" });
+      fireEvent.click(categoryButton);
+
+      await waitFor(() => {
+        expect(screen.getByRole("list")).toBeInTheDocument();
+      });
+
+      const studyCategory = screen.getByText("Study", { selector: "li" });
+      fireEvent.click(studyCategory);
+
+      await waitFor(() => {
+        expect(
+          screen.getByText("Study React", {
+            selector: '[data-testid="todoItem"]',
+          })
+        ).toBeInTheDocument();
+      });
     });
   });
 });
