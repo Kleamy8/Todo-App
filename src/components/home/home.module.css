@@ -2,13 +2,8 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  overflow: hidden;
-}
 
-.header {
-  flex-shrink: 0;
-  z-index: 10;
+  overflow: hidden;
 }
 
 .calendar {
@@ -17,9 +12,6 @@
 }
 
 button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
   background: #1a73e8;
   color: white;
   border: none;

@@ -1,3 +1,4 @@
+import {} from "cypress";
 describe("CreateTodo component", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -35,3 +36,4 @@ describe("CreateTodo component", () => {
       });
   });
 });
+export {};

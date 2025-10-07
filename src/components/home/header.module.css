@@ -1,0 +1,36 @@
+.header {
+  background: transparent;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  height: 20%;
+  background: #2d2d2d;
+  border-bottom: 1px solid white;
+}
+.title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3%;
+  color: white;
+}
+.category {
+  position: absolute;
+  right: 30%;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: #1a73e8;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1000;
+}
+.navbar button {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}

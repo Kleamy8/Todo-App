@@ -10,12 +10,22 @@ interface Todo {
 export const Calendar: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [todos, setTodos] = useState<Todo[]>([]);
-
+  const [category, setCategory] = useState(
+    localStorage.getItem("categories") || ""
+  );
+  console.log(category);
   useEffect(() => {
     const saved = localStorage.getItem("todo");
     if (saved) {
       setTodos(JSON.parse(saved));
     }
+  }, []);
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setCategory(localStorage.getItem("categories") || "");
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const getDaysInMonth = () => {
@@ -65,16 +75,18 @@ export const Calendar: React.FC = () => {
   const dayNames = ["Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"];
 
   const days = getDaysInMonth();
+  console.log("Calendar render start");
 
   return (
     <div className={styles.calendar}>
       <div className={styles.calendarHeader}>
-        <h1 className={styles.title}>
-          {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-        </h1>
         <div className={styles.navigation}>
+          {(() => {
+            console.log("Navigation visible");
+            return null;
+          })()}
           <button
-            className={styles.navButton}
+            className={styles.navButtonpre}
             onClick={() =>
               setCurrentDate(
                 new Date(
@@ -87,8 +99,11 @@ export const Calendar: React.FC = () => {
           >
             ‹
           </button>
+          <h1 className={styles.title}>
+            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+          </h1>
           <button
-            className={styles.navButton}
+            className={styles.navButtonnext}
             onClick={() =>
               setCurrentDate(
                 new Date(
@@ -115,16 +130,24 @@ export const Calendar: React.FC = () => {
 
         <div className={styles.daysGrid}>
           {days.map((day, index) => (
-            <div key={index} className={styles.dayCell}>
+            <div key={index} className={styles.dayCell} data-testid="day-cell">
               {day && (
                 <>
-                  <div className={styles.dayNumber}>{day.getDate()}</div>
-                  <div className={styles.todosContainer}>
-                    {getTodosForDay(day).map((todo, todoIndex) => (
-                      <div key={todoIndex} className={styles.todoItem}>
-                        {todo.task}
-                      </div>
-                    ))}
+                  <div className={styles.dayNumber} data-testid="day-number">
+                    {day.getDate()}
+                  </div>
+                  <div className={styles.todosContainer} data-testid="calander">
+                    {getTodosForDay(day)
+                      .filter(todo => !category || todo.category === category)
+                      .map((todo, todoIndex) => (
+                        <div
+                          key={todoIndex}
+                          className={styles.todoItem}
+                          data-testid="todoItem"
+                        >
+                          {todo.task}
+                        </div>
+                      ))}
                   </div>
                 </>
               )}
