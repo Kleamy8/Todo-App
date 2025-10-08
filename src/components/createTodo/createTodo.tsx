@@ -25,7 +25,6 @@ export function CreateTodo() {
     const updatedTasks = [...tasks, newTodo];
     setTasks(updatedTasks);
     localStorage.setItem("todo", JSON.stringify(updatedTasks));
-    alert("task added");
     setTask("");
     setStartDate(new Date());
     console.log(updatedTasks);
