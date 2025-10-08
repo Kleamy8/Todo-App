@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./home.module.css";
 import { Header } from "./header";
 import { useNavigate } from "react-router-dom";
-import { Calendar } from "../calendar/Calendar/Calendar";
+import { Calendar } from "../calendar/Calendar";
 
 export function Home() {
   const navigate = useNavigate();
