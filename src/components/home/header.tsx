@@ -25,7 +25,19 @@ export function Header({ name }: { name: string }) {
           >
             Add new Todo
           </button>
-          <div className={styles.category}>
+          <div
+            className={styles.category}
+            style={{
+              backgroundColor:
+                category == "Work"
+                  ? "blue"
+                  : category == "Study"
+                  ? "green"
+                  : category == "Private"
+                  ? "red"
+                  : "#1a73e8",
+            }}
+          >
             <p onClick={() => setShow(!show)}>
               {category !== "" ? category : "Category"}
             </p>
@@ -40,6 +52,7 @@ export function Header({ name }: { name: string }) {
                   All
                 </li>
                 <li
+                  style={{ background: "green" }}
                   onClick={() => {
                     setCategory("Study");
                     setShow(false);
@@ -47,7 +60,9 @@ export function Header({ name }: { name: string }) {
                 >
                   Study
                 </li>
+
                 <li
+                  style={{ background: "blue" }}
                   onClick={() => {
                     setCategory("Work");
                     setShow(false);
@@ -56,6 +71,7 @@ export function Header({ name }: { name: string }) {
                   Work
                 </li>
                 <li
+                  style={{ background: "red" }}
                   onClick={() => {
                     setCategory("Private");
                     setShow(false);
