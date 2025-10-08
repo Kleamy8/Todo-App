@@ -1,0 +1,16 @@
+node_modules/\*
+./node_modules/\*\*
+**/node_modules/**
+client/dist/
+
+# Ignore artifacts:
+
+coverage/
+dist/
+public/
+**mocks**/
+
+commitlint.config.js
+jest.config.js
+postcss.config.js
+\*.d.ts
