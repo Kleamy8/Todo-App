@@ -7,7 +7,7 @@ import { CreateTodo } from "./components/createTodo/createTodo";
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/Todo-App/">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<CreateTodo />} />
