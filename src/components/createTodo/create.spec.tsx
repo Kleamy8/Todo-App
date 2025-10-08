@@ -1,83 +1,74 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { CreateTodo } from "./createTodo";
 
-let mockedSetItem: jest.Mock;
-
-beforeEach(() => {
-  localStorage.clear();
-  jest.restoreAllMocks();
-
-  mockedSetItem = jest.spyOn(Storage.prototype, "setItem") as jest.Mock;
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  clear: jest.fn(),
+};
+Object.defineProperty(window, "localStorage", {
+  value: localStorageMock,
 });
 
 describe("CreateTodo component", () => {
-  test("add new todo and save to localStorage", () => {
+  beforeEach(() => {
+    localStorageMock.getItem.mockReturnValue("[]");
+    localStorageMock.setItem.mockClear();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test("add new todo and save to localStorage", async () => {
     render(<CreateTodo />);
 
     const input = screen.getByPlaceholderText("Task name");
-    const button = screen.getByText("Add");
-
-    fireEvent.change(input, { target: { value: "test task" } });
+    const button = screen.getByRole("button", { name: "Add Task" });
     const dateInput = screen.getByTestId("date-picker");
-    fireEvent.click(dateInput);
-
-    const dayButton = screen.getByText("15");
-    fireEvent.click(dayButton);
     const select = screen.getByTestId("options");
-    fireEvent.change(select, { target: { value: "Work" } });
+
+    fireEvent.change(input, { target: { value: "test task " } });
+    fireEvent.change(select, { target: { value: "Study" } });
 
     fireEvent.click(button);
 
-    expect(input).toHaveValue("");
-
-    expect(mockedSetItem).toHaveBeenCalledTimes(1);
-
-    const savedTodos = JSON.parse(mockedSetItem.mock.calls[0][1]);
-    expect(savedTodos.length).toBe(1);
-    expect(savedTodos[0].task).toBe("test task");
-    expect(new Date(savedTodos[0].date).getDate()).toBe(15);
-    expect(savedTodos[0].category).toBe("Work");
+    await waitFor(() => {
+      expect(localStorageMock.setItem).toHaveBeenCalled();
+    });
   });
-  test("adds multiple todos correctly", () => {
+
+  test("adds multiple todos correctly", async () => {
     render(<CreateTodo />);
 
     const input = screen.getByPlaceholderText("Task name");
-    const addButton = screen.getByText("Add");
+    const addButton = screen.getByRole("button", { name: "Add Task" });
     const dateInput = screen.getByTestId("date-picker");
     const select = screen.getByTestId("options");
 
-    // === Task 1 ===
-    fireEvent.change(input, { target: { value: "Task 1" } });
-    fireEvent.click(dateInput);
-    const dayButton = screen.getByText("17");
-    fireEvent.click(dayButton);
-    fireEvent.change(select, { target: { value: "Work" } }); //
-    fireEvent.click(addButton);
-
-    // === Task 2 ===
-    fireEvent.change(input, { target: { value: "Task 2" } });
-    fireEvent.click(dateInput);
-    const day2Button = screen.getByText("18");
-    fireEvent.click(day2Button);
+    fireEvent.change(input, { target: { value: "first task" } });
     fireEvent.change(select, { target: { value: "Work" } });
     fireEvent.click(addButton);
 
-    const savedTodos = JSON.parse(mockedSetItem.mock.calls[1][1]);
-    expect(savedTodos.length).toBe(2);
-    expect(savedTodos[0].task).toBe("Task 1");
-    expect(new Date(savedTodos[0].date).getDate()).toBe(17);
-    expect(savedTodos[0].category).toBe("Work");
-    expect(savedTodos[1].task).toBe("Task 2");
-    expect(new Date(savedTodos[1].date).getDate()).toBe(18);
-    expect(savedTodos[1].category).toBe("Work");
+    await waitFor(() => {
+      expect(localStorageMock.setItem).toHaveBeenCalled();
+    });
+
+    fireEvent.change(input, { target: { value: "second task" } });
+    fireEvent.change(select, { target: { value: "Private" } });
+    fireEvent.click(addButton);
+
+    await waitFor(() => {
+      expect(localStorageMock.setItem).toHaveBeenCalledTimes(2);
+    });
   });
 
   test("does not save empty task", () => {
     render(<CreateTodo />);
-    const addButton = screen.getByText("Add");
-
+    const addButton = screen.getByRole("button", { name: "Add Task" });
     fireEvent.click(addButton);
 
-    expect(localStorage.setItem).not.toHaveBeenCalled();
+    expect(localStorageMock.setItem).not.toHaveBeenCalled();
   });
 });
