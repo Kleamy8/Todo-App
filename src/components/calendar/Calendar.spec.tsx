@@ -242,4 +242,144 @@ describe("Calendar Component", () => {
       expect(screen.getByRole("heading")).toBeInTheDocument();
     });
   });
+
+  describe("Dynamic Todo Display Tests", () => {
+    test("loads todos from localStorage and processes them", () => {
+      const testTodos = [
+        {
+          task: "Test Task 1",
+          date: new Date(2024, 9, 25),
+          category: "Work",
+        },
+      ];
+
+      localStorageMock.getItem.mockReturnValue(JSON.stringify(testTodos));
+
+      render(<Calendar />);
+
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("todo");
+    });
+
+    test("loads multiple todos from localStorage", () => {
+      const testTodos = [
+        {
+          task: "Morning Meeting",
+          date: new Date(2024, 9, 15),
+          category: "Work",
+        },
+        {
+          task: "Study Session",
+          date: new Date(2024, 9, 20),
+          category: "Study",
+        },
+        {
+          task: "Gym Workout",
+          date: new Date(2024, 9, 25),
+          category: "Private",
+        },
+      ];
+
+      localStorageMock.getItem.mockReturnValue(JSON.stringify(testTodos));
+
+      render(<Calendar />);
+
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("todo");
+    });
+
+    test("handles todos with different dates", () => {
+      const testTodos = [
+        {
+          task: "Wrong Month Todo",
+          date: new Date(2024, 8, 25),
+          category: "Work",
+        },
+      ];
+
+      localStorageMock.getItem.mockReturnValue(JSON.stringify(testTodos));
+
+      render(<Calendar />);
+
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("todo");
+    });
+  });
+
+  describe("Dynamic Category Filtering Tests", () => {
+    test("loads category filter from localStorage for Work", () => {
+      const testTodos = [
+        {
+          task: "Work Task",
+          date: new Date(2024, 9, 15),
+          category: "Work",
+        },
+        {
+          task: "Study Task",
+          date: new Date(2024, 9, 15),
+          category: "Study",
+        },
+      ];
+
+      localStorageMock.getItem.mockImplementation(key => {
+        if (key === "todo") return JSON.stringify(testTodos);
+        if (key === "categories") return "Work";
+        return null;
+      });
+
+      render(<Calendar />);
+
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("todo");
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("categories");
+    });
+
+    test("loads category filter from localStorage for Study", () => {
+      const testTodos = [
+        {
+          task: "Work Task",
+          date: new Date(2024, 9, 15),
+          category: "Work",
+        },
+        {
+          task: "Study Task",
+          date: new Date(2024, 9, 15),
+          category: "Study",
+        },
+      ];
+
+      localStorageMock.getItem.mockImplementation(key => {
+        if (key === "todo") return JSON.stringify(testTodos);
+        if (key === "categories") return "Study";
+        return null;
+      });
+
+      render(<Calendar />);
+
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("todo");
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("categories");
+    });
+
+    test("loads todos when no category filter is set", () => {
+      const testTodos = [
+        {
+          task: "Work Task",
+          date: new Date(2024, 9, 15),
+          category: "Work",
+        },
+        {
+          task: "Study Task",
+          date: new Date(2024, 9, 15),
+          category: "Study",
+        },
+      ];
+
+      localStorageMock.getItem.mockImplementation(key => {
+        if (key === "todo") return JSON.stringify(testTodos);
+        if (key === "categories") return "";
+        return null;
+      });
+
+      render(<Calendar />);
+
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("todo");
+      expect(localStorageMock.getItem).toHaveBeenCalledWith("categories");
+    });
+  });
 });
