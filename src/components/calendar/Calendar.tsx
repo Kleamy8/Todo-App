@@ -141,6 +141,17 @@ export const Calendar: React.FC = () => {
                       .filter(todo => !category || todo.category === category)
                       .map((todo, todoIndex) => (
                         <div
+                          style={{
+                            backgroundColor:
+                              todo.category == "Work"
+                                ? "blue"
+                                : todo.category == "Study"
+                                ? "green"
+                                : todo.category == "Private"
+                                ? "red"
+                                : "transparent",
+                            color: "white",
+                          }}
                           key={todoIndex}
                           className={styles.todoItem}
                           data-testid="todoItem"

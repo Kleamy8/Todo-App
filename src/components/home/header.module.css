@@ -19,7 +19,7 @@
   right: 30%;
   top: 50%;
   transform: translateY(-50%);
-
+  width: 13%;
   background: #1a73e8;
   color: white;
   padding: 12px 24px;
@@ -27,10 +27,52 @@
   cursor: pointer;
   font-size: 16px;
   z-index: 1000;
+  text-align: center;
+  border: none;
 }
 .navbar button {
   position: absolute;
   right: 5%;
   top: 50%;
   transform: translateY(-50%);
+}
+
+ul {
+    padding-top: 2px;
+  position: absolute;
+  background: #1a73e8;
+  width: 100%;
+  padding: 0.05px;
+  left: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  border: none;
+}
+li{
+    width: 100%;
+}
+.info {
+  position: absolute;
+  color: white;
+  right: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.block {
+  text-align: center;
+  width: 80px;
+border-radius: 8px;
+
 }
